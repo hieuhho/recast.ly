@@ -1,4 +1,4 @@
-var searchYouTube = (options, callback, errorcallback = null) => {
+var searchYouTube = (options, callback) => {
   // TODO
   let youtubeData = {
     part: 'snippet',
@@ -18,8 +18,8 @@ var searchYouTube = (options, callback, errorcallback = null) => {
       callback(data.items);
       console.log('ajax success');
     },
-    error: errorcallback || function(data) {
-      console.error('ajax error');
+    error: function(response) {
+      console.error('ajax error', response);
     }
   });
 };
