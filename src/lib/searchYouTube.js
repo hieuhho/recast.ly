@@ -1,11 +1,12 @@
-var searchYouTube = (options, callback) => {
+var searchYouTube = (options, callback, errorcallback = null) => {
   // TODO
   let youtubeData = {
     part: 'snippet',
-    maxResults: 10,
-    q: options,
+    maxResults: options.max,
+    q: options.query,
     type: 'video',
-    videoEmbeddable: true
+    videoEmbeddable: true,
+    key: options.key
   };
 
   $.ajax({
@@ -14,10 +15,11 @@ var searchYouTube = (options, callback) => {
     data: youtubeData,
     contentType: 'application/json',
     success: function(data) {
+      callback(data.items);
       console.log('ajax success');
     },
-    error: function(data) {
-      console.log('ajax error');
+    error: errorcallback || function(data) {
+      console.error('ajax error');
     }
   });
 };
