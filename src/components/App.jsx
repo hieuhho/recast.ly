@@ -14,7 +14,9 @@ class App extends React.Component {
 
     this.state = {
       currentVideo: exampleVideoData[0],
-      videos: exampleVideoData
+      videos: exampleVideoData,
+      search: 'Type something',
+      debounce: 500
     };
   }
 
@@ -42,8 +44,15 @@ class App extends React.Component {
       currentVideo: video
     });
   }
-  handleSearchInput(search) {
-    this.getVideos(search);
+
+  handleSearchInput(event) {
+    this.setState({
+      search: event
+    });
+    clearTimeout(this.state.debounce);
+    this.setState({
+      debounce: setTimeOut(() => getVideos(event), 500)
+    });
   }
 
   render() {
@@ -51,7 +60,10 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em><Search/></h5></div>
+            <div><h5><em>search</em><Search
+              search={this.state.search}
+              onChange={(event) => this.handleSearchInput(event)}
+            /></h5></div>
           </div>
         </nav>
         <div className="row">
