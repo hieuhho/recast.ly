@@ -16,7 +16,7 @@ class App extends React.Component {
       currentVideo: exampleVideoData[0],
       videos: exampleVideoData,
       search: 'Type something',
-      debounce: 500
+      debounce: null
     };
   }
 
@@ -47,11 +47,8 @@ class App extends React.Component {
 
   handleSearchInput(event) {
     this.setState({
-      search: event
-    });
-    clearTimeout(this.state.debounce);
-    this.setState({
-      debounce: setTimeOut(() => getVideos(event), 500)
+      search: event.target.value,
+      debounce: setTimeout(() => this.getVideos(this.state.search), 500)
     });
   }
 
