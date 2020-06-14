@@ -36,7 +36,7 @@ npm start
 
 ### Running the tests
 
-This repo uses Mocha and Chai to run its test. To start:
+This repo uses live server to run its test. To start:
 
 ```
 npm test
